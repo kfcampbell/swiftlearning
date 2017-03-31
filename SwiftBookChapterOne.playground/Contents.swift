@@ -76,7 +76,22 @@ emptyDictionary = [:]
 //let otherEmptyArray = [] // doesn't compile
 //let otherEmptyDictionary = [:] // doesn't compile
 
-// pick back up with control flow.
+// CONTROL FLOW
+// there isn't any break required in switch statements in Swift.
+
+//let vegetable = "red pepper"
+let vegetable = "this doesn't with pepper..."
+switch vegetable {
+    case "celery":
+    print("Why don't you eat it with ranch or peanut butter?")
+    case "cucumber", "watercress":
+        print("Who likes these vegetables anyway?")
+    case let x where x.hasSuffix("pepper"): // this kinda reminds me of LINQ
+        print("Is it a spicy \(x)?")
+    default:
+        print("Everything tastes good in soup.")
+}
+// if the default case is removed, the error is "switch must be exhaustive, consider adding a default clause
 
 
 
