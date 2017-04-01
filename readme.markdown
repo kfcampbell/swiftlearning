@@ -1,0 +1,3 @@
+# Swift Learning
+
+This is a place to hold my notes and progress as I learn Swift. I'm hosting it on Github to facilitate moving between computers. Nothing to see here, move along...
