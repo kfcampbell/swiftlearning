@@ -201,6 +201,186 @@ print(statistics.sum)
 print(statistics.1) // max. tuple indices are zero-based.
 print(statistics.max)
 
+// to take an array of a variable number of arguments, use {Type}... in the function declaration
+func sumOf(numbers: Int...) -> Int {
+    var sum = 0
+    for number in numbers {
+        sum += number
+    }
+    return sum
+}
+sumOf()
+sumOf(numbers: 42, 597, 12)
+
+func calculateAverage(numbers: Float...) -> Float {
+    let size : Float = Float(numbers.count)
+    var average : Float = 0
+    
+    for number in numbers {
+        average += number
+    }
+    
+    return (average/size)
+}
+
+calculateAverage(numbers: 42, 597, 12)
+calculateAverage(numbers: 5, 6, 7)
+//calculateAverage(numbers: "4", "5", "6") // doesn't compile
+
+// nested functions
+func returnFifteen() -> Int {
+    var y = 10
+
+    func add() {
+        // inner functions have access to the outer function's variables
+        y += 5
+    }
+    add()
+    return y
+}
+
+returnFifteen()
+
+// functions can return other functions. whaaat.
+func makeIncrementer() -> ((Int) -> Int) {
+    func addOne(number: Int) -> Int {
+        return number + 1
+    }
+    return addOne
+}
+
+var increment = makeIncrementer()
+increment(7)
+
+// a function can take another function as one of its arguments.
+func hasAnyMatches(list: [Int], condition: (Int) -> Bool) -> Bool {
+    for item in list {
+        if condition(item) {
+            return true
+        }
+    }
+    return false
+}
+
+// still works without explicit list argument.
+func hasAnyMatches(numbers: Int..., condition: (Int) -> Bool) -> Bool {
+    for number in numbers {
+        if condition(number) {
+            return true
+        }
+    }
+    return false
+}
+
+func lessThanTen(number: Int) -> Bool {
+    return number < 10
+}
+
+var numbers = [20, 19, 17, 12, 22]
+hasAnyMatches(list: numbers, condition: lessThanTen)
+hasAnyMatches(numbers: 5, 2, 3, 10, 5, condition: lessThanTen)
+
+// functions are a type of closures. closures are blocks of code that can be called later.
+// I DON'T UNDERSTAND CLOSURES AT ALL. COME BACK AND REVIEW LATER.
+numbers.map({ (number: Int) -> Int in
+    let result = 3 * number
+    return result
+})
+
+// i have no idea how to call the above thing.
+//Numbers.map(5) // doesn't do it.
+
+// i think this is supposed to rely on the numbers variable above?
+let mappedNumbers = numbers.map({ number in 3 * number})
+print(mappedNumbers)
+
+// closures can refer to parameters by number instead of name
+// sort numbers in descending order.
+let sortedNumbers = numbers.sorted { $0 > $1 }
+print(sortedNumbers)
+
+// use the class keyword to create a class.
+class Shape {
+    var numberOfSides = 0
+    let helloWorld = "Hello, I'm a shape!"
+    
+    func simpleDescription() -> String {
+        return "A shape with \(numberOfSides) sides."
+    }
+    
+    // i think you return void but just omitting the arrow and the function outputw.
+    func setNumberOfSides(number: Int) {
+        numberOfSides = number
+    }
+}
+
+// instantiate just like C# but without the new keyword.
+var shape = Shape()
+var shapeDescription = shape.simpleDescription()
+shape.setNumberOfSides(number: 5)
+shapeDescription = shape.simpleDescription()
+
+// use the . syntax to access the properties and methods of class instances.
+shape.numberOfSides
+
+// still need to know how to make things private.
+
+// constructors are done with an init(parameters) function
+
+class NamedShape {
+    // default values can be assigned in the declaration of properties
+    var numberOfSides: Int = 0
+    var name: String
+    
+    init(name: String) {
+        // use the self keyword to distinguish between the class's property and the argument
+        self.name = name
+    }
+    
+    deinit
+    {
+        // do cleanup here before object is garbage collected.
+        // no parameters are allowed on the deinitializer
+    }
+    
+    func simpleDescription() -> String {
+        return "A shape with \(numberOfSides)."
+    }
+}
+
+// to subclass, use a colon and the superclass name after the subclass.
+class Square: NamedShape {
+    var sideLength: Double
+    
+    init(sideLength: Double, name:String){
+        self.sideLength = sideLength
+        
+        // call the constructor of the superclass
+        super.init(name: name)
+        //self.name = name // doesn't compile.
+        //must call the superclass's intializer at some point otherwise the compiler throws an error.
+
+        
+        // can access properties of superclass the same as if they were properties of the subclass
+        numberOfSides = 4
+    }
+    
+    // functions marked as override but who aren't will throw a compiler error
+    /*override*/ func area() -> Double {
+        return sideLength * sideLength
+    }
+    
+    // functions that aren't marked as override but who are will throw a compiler error
+    override func simpleDescription() -> String {
+        return "A square with sides of length \(sideLength)."
+    }
+}
+
+let testSquare = Square(sideLength: 5.2, name: "I'm a square")
+testSquare.area()
+testSquare.simpleDescription()
+
+
 
 
 
