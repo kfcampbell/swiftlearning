@@ -380,6 +380,186 @@ let testSquare = Square(sideLength: 5.2, name: "I'm a square")
 testSquare.area()
 testSquare.simpleDescription()
 
+class Circle: NamedShape {
+    var radius: Double
+    
+    init(radius: Double, name:String) {
+        self.radius = radius
+        //self.name = name // nope, that's done by the super
+        super.init(name: name)
+    }
+    
+    func area() -> Double {
+        return 3.141592654*radius*radius
+    }
+    
+    override func simpleDescription() -> String {
+        // turns out you can call methods in the \() syntax.
+        return "This is a circle with \(area()) units of area."
+    }
+}
+
+var circle = Circle(radius: 5, name:"someCircle")
+circle.area()
+circle.simpleDescription()
+
+
+// properties may have a getter and a setter
+class EquilateralTriangle: NamedShape {
+    var sideLength: Double = 0
+    
+    init(sideLength: Double, name: String) {
+        self.sideLength = sideLength
+        super.init(name: name)
+        numberOfSides = 3 // this is unclear, but it's a property of the superclass
+    }
+    
+    var perimeter: Double {
+        get {
+            return 3.0 * sideLength
+        }
+        set {
+            sideLength = newValue / 3.0
+        }
+    }
+    
+    override func simpleDescription() -> String {
+        return "An equilateral triangle with sides of length \(sideLength)"
+    }
+}
+
+var triangle = EquilateralTriangle(sideLength: 3.1, name: "equilateral triangle")
+print(triangle.perimeter)
+triangle.perimeter = 9.9
+print(triangle.sideLength)
+
+// initializers for subclasses have 3 steps:
+// 1. set the value of properties that only belong to the subclass
+// 2. call the superclass initializer
+// 3. change the value of any properties defined by the superclass
+// 4. any additional setup work can come after.
+
+// use willSet and didSet to provide code that is run before and after setting a property, respectively.
+class TriangleAndSquare {
+    var triangle: EquilateralTriangle {
+        willSet {
+            // newValue is the keyword used to access the incoming value
+            square.sideLength = newValue.sideLength
+        }
+    }
+    var square: Square {
+            willSet {
+                triangle.sideLength = newValue.sideLength // make sure the triangle and square always have the same sideLength
+        }
+    }
+    
+    // initializers must be explicitly specified.
+    init(size: Double, name: String) {
+        square = Square(sideLength: size, name: name)
+        triangle = EquilateralTriangle(sideLength: size, name: name)
+    }
+}
+
+var triangleAndSquare = TriangleAndSquare(size: 10, name: "another test shape")
+print(triangleAndSquare.square.sideLength)
+print(triangleAndSquare.triangle.sideLength)
+
+triangleAndSquare.square = Square(sideLength: 50, name: "larger square")
+print(triangleAndSquare.triangle.sideLength)
+
+// ? means optional similar to C#. 
+// in item?.someProperty, if item is nil, then the whole expression is nil.
+
+let optionalSquare: Square? = Square(sideLength: 2.5, name: "optional square")
+let sideLength = optionalSquare?.sideLength
+// let nextSideLength: Double = optionalSquare?.sideLength // does not compile
+let nextSideLength: Double? = optionalSquare?.sideLength // need to specify which values are optional always
+let thirdSideLength: Double = (optionalSquare?.sideLength)! // this compiles but i have no idea what it means
+
+// just like C#, use the keyword enum to create an enum
+enum Rank: Int {
+    case ace = 1 // specified because the default is 0
+    case two, three, four, five, six, seven, eight, nine, ten
+    case jack, queen, king
+    
+    // this doesn't change anything. not sure why jack, queen, and king are separated into a different case.
+    //case two, three, four, five, six, seven, eight, nine, ten, jack, queen, king
+
+    
+    // enums can have included functions
+    func simpleDescription() -> String {
+        switch self {
+        case .ace:
+            return "ace"
+        case .jack:
+            return "jack"
+        case .queen:
+            return "queen"
+        case .king:
+            return "king"
+        default:
+            return String(self.rawValue)
+        }
+    }
+    
+    func compareRanks(rank: Rank) -> Rank {
+        // using the conditional operator to keep it to one line.
+        return (self.rawValue > rank.rawValue) ? self : rank
+    }
+}
+
+let ace = Rank.ace
+let aceRawValue = ace.rawValue
+
+let jack = Rank.jack
+let jackRawValue = jack.rawValue
+
+var biggerRank = ace.compareRanks(rank: jack)
+print(biggerRank.simpleDescription())
+
+
+// by default swift's enumeration starts at 0 and increases by 1.
+// can also use floats or strings as the raw type of an enum
+
+// use init?(rawValue:) syntax to instantiate an enum from a raw value
+// returns nil if no matching value.
+if let convertedRank = Rank(rawValue: 3) {
+    let threeDescription = convertedRank.simpleDescription()
+}
+
+enum Suit {
+    case spades, hearts, diamonds, clubs // if no meaningful raw value, use the default
+    func simpleDescription() -> String {
+        switch self {
+        case .spades: // it's weird there's no indent here for the switch cases.
+            return "spades"
+        case .hearts:
+            return "hearts"
+        case .diamonds:
+            return "diamonds"
+        case .clubs:
+            return "clubs"
+        }
+    }
+    
+    func color() -> String {
+        switch self {
+        case .spades, .clubs:
+            return "black"
+        case .diamonds, .hearts:
+            return "red"
+        }
+    }
+}
+
+let hearts = Suit.hearts
+let heartsDescription = hearts.simpleDescription()
+let heartsColor = hearts.color()
+
+
+
+
+
 
 
 
