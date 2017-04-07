@@ -556,6 +556,132 @@ let hearts = Suit.hearts
 let heartsDescription = hearts.simpleDescription()
 let heartsColor = hearts.color()
 
+// can add enum values when you instantiate
+enum ServerResponse {
+    case result(String, String) // note that these aren't named
+    case failure(String)
+    case promise(String)
+}
+
+let success = ServerResponse.result("6:00 AM", "8:09 PM")
+let failure = ServerResponse.failure("Something went wrong. Have you tried turning it on/off again?")
+let promise = ServerResponse.promise("Request received. We'll get back to you later.")
+
+switch /*success failure*/ promise {
+case let .result(sunrise, sunset): // sunrise and sunset so we can reference the variables later
+    print("Sunrise is at \(sunrise) and sunset is at \(sunset).")
+case let .failure(message):
+    print("Failure...\(message)")
+case let .promise(message):
+    print("Promise...\(message)")
+}
+
+// structures are created using the struct keyword
+// structs can have inits and their own methods
+// structs are copied when they are passed around! classes are passed by reference
+
+struct Card {
+    var rank: Rank
+    var suit: Suit
+    func simpleDescription() -> String {
+        return "The \(rank.simpleDescription()) of \(suit.simpleDescription())"
+    }
+}
+
+let threeOfSpades = Card(rank: .three, suit: .spades)
+let threeOfSpadesDescription = threeOfSpades.simpleDescription()
+
+
+// use the protocol keyword to declare a protocol.
+// classes, enums, and structs can adopt protocols.
+// what is a protocol?
+
+protocol ExampleProtocol {
+    var simpleDescription: String { get }
+    mutating func adjust() // first use of the mutating keyword we've seen. no explanation of it in the book
+}
+
+class SimpleClass: ExampleProtocol {
+    var simpleDescription: String = "A very simple class."
+    var anotherProperty: Int = 69105
+    func adjust() {
+        simpleDescription += "\n Now 100% adjusted."
+    }
+}
+
+var simpleClass = SimpleClass()
+simpleClass.adjust()
+let simpleClassDescription = simpleClass.simpleDescription
+
+struct SimpleStructure: ExampleProtocol {
+    var simpleDescription: String = "A simple structure."
+    mutating func adjust() { // struct methods implementing protocols must be marked as mutating
+        simpleDescription += " (adjusted)"
+    }
+}
+
+var simpleStructure = SimpleStructure()
+simpleStructure.adjust()
+let simpleStructureDescription = simpleStructure.simpleDescription
+
+enum SimpleEnum: ExampleProtocol {
+    case simple, complicated
+    //var simpleDescription: String = "A simple enum." // enum may not contain stored properties
+    var simpleDescription: String
+    {
+        switch self {
+        case .simple:
+            return "Simple enum."
+        case .complicated:
+            return "Complicated enum."
+        }
+    }
+    
+    mutating func adjust() {
+         print("enum has simply been adjusted.")
+    }
+}
+
+var c = SimpleEnum.simple
+print(c.simpleDescription)
+c = SimpleEnum.complicated
+c.adjust()
+print(c.simpleDescription)
+
+// the extension keyword can be used to add functionality to an existing type.
+// this can be done on types you create, import from a library, or system types.
+
+extension Int: ExampleProtocol {
+    var simpleDescription: String {
+        return "The number \(self)."
+    }
+    mutating func adjust() {
+        self += 42
+    }
+}
+
+print (7.simpleDescription) // don't even have to declare it. that's cool
+//7.adjust() // can't use any mutating member on an immutable value. literals are not mutable.
+var myFavoriteNumber = 8
+myFavoriteNumber.adjust()
+
+protocol DoubleAbsoluteValue {
+    var absoluteValue: Double { get }
+}
+
+extension Double: DoubleAbsoluteValue {
+    var absoluteValue: Double {
+        return self
+    }
+}
+print(8.0.absoluteValue)
+
+// when typing objects as a protocol type, methods and members outside the protocol definition are not available.
+let protocolValue: ExampleProtocol = simpleClass
+print(protocolValue.simpleDescription)
+//print(protocolValue.anotherProperty) // value of type ExampleProtocol has no member anotherProperty
+
+
 
 
 
