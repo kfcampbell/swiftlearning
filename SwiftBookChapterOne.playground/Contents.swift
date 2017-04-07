@@ -140,6 +140,7 @@ for i in 0...4 { // this includes the end value. i is 0, 1, 2, 3, 4
 }
 print(total)
 
+// FUNCTIONS
 // declare a function using func.
 // parameters are declared in a (varName: varType) syntax
 // declare the return type using ->
@@ -682,15 +683,155 @@ print(protocolValue.simpleDescription)
 //print(protocolValue.anotherProperty) // value of type ExampleProtocol has no member anotherProperty
 
 
+// Error Handling
+
+// can represent errors using any type (probably class, enum, struct) that adopts the Error protocol.
+enum PrinterError: Error {
+    case outOfPaper
+    case noToner
+    case onFire
+}
+
+// 'throw' throws an error (whaaat) and 'throws' marks a function that can throw an error.
+// if an error is thrown in a function, the function returns immediately 
+// and the code that called the function handles the error.
+
+func send(job: Int, toPrinter printerName: String) throws -> String {
+    if printerName == "Never Has Toner" {
+        throw PrinterError.noToner
+    }
+    if printerName == "On Fire!" {
+        throw PrinterError.onFire
+    }
+    if printerName == "Never Has Paper" {
+        throw PrinterError.outOfPaper
+    }
+    return "Job sent"
+}
+
+// instead of try/catch, you use do/catch with 'try' in front of code that can throw an error
+do {
+    //let printerResponse = try send(job: 1040, toPrinter: "Jake's printer")
+    let printerResponse = try send(job: 1040, toPrinter: "Never Has Toner") // string comparisons are done with ==
+    print(printerResponse)
+}
+catch {
+    print(error)
+}
+
+// can provide multiple catch blocks that handle specific errors.
+do {
+    //let printerResponse = try send(job: 1440, toPrinter: "Gutenberg") // no error thrown
+    //let printerResponse = try send(job: 1440, toPrinter: "Never Has Paper") // hits second catch block
+    let printerResponse = try send(job: 1440, toPrinter: "On Fire!") // hits first catch block
+    // i can't figure out how to trigger the last catch block
+    print(printerResponse)
+}
+catch PrinterError.onFire {
+    print("I'll just put this over here, with the rest of the fire.")
+}
+catch let printerError as PrinterError {
+    print("Printer error: \(printerError)")
+}
+// if this last block is excluded, there's no compiler error.
+catch {
+    print(error) // 'error' must be the default for an error message.
+}
+
+// optional --> C# nullable
+// can use try? to convert the result to an optional.
+// if the function throws an error, the error is discarded and the result is nil
+// otherwise the result is an optional containing the function result
+
+let printerSuccess = try? send(job: 1884, toPrinter: "Mergenthaler")
+let printerFailure = try? send(job: 1885, toPrinter: "Never Has Toner") // nil
+
+// use 'defer' inside a function to execute code that is always executed befoer the function returns
+// regardless of whether the function throws an error.
+// use to write setup and cleanup code next to each other even though they're executed differently.
 
 
+var fridgeIsOpen = true
+let fridgeContent = ["milk", "eggs", "leftovers"]
+
+func fridgeContains(_ food: String) -> Bool {
+    fridgeIsOpen = true
+    defer {
+        fridgeIsOpen = false
+    }
+    
+    let result = fridgeContent.contains(food)
+    return result
+}
+
+fridgeContains("banana") // who puts bananas in the fridge?
+fridgeContains("milk")
+print(fridgeIsOpen)
 
 
+// GENERICS
+// write a name inside angle brackets to make a generic function or type
+func makeArray<Item>(repeating item: Item, numberOfTimes: Int) -> [Item] {
+    var result = [Item]()
+    for _ in 0..<numberOfTimes {
+        result.append(item)
+    }
+    return result
+}
+
+makeArray(repeating: "knock", numberOfTimes: 4)
+
+enum OptionalValue<Wrapped> {
+    case none
+    case some(Wrapped)
+}
+
+var possibleInteger: OptionalValue<Int> = .none
+possibleInteger = .some(100)
+
+// use 'where' right before the body of the function/class/enum/struct/etc.
+// to specify a list of requirements (to require the type to implement a protocol,
+// to require two types to be the same, or to require the class to have a specific superclass
+func anyCommonElements<T: Sequence, U: Sequence>(_ lhs: T, _ rhs: U) -> Bool
+    where T.Iterator.Element: Equatable, T.Iterator.Element == U.Iterator.Element {
+        for lhsItem in lhs {
+            for rhsItem in rhs {
+                if lhsItem == rhsItem {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+anyCommonElements([1, 2, 3], [3])
+
+func returnCommonElements<T: Sequence, U: Sequence>(_ lhs: T, _ rhs: U) -> [T.Iterator.Element]
+    where T.Iterator.Element: Equatable, T.Iterator.Element == U.Iterator.Element {
+        var itemsInCommon = [T.Iterator.Element]()
+        for lhsItem in lhs {
+            for rhsItem in rhs {
+                if lhsItem == rhsItem {
+                    itemsInCommon.append(lhsItem)
+                }
+            }
+        }
+        return itemsInCommon
+    }
+
+returnCommonElements([1, 2, 3, 4], [2,3])
 
 
-
-
-
+// writing <T: Equatable> is the same as writing <T> ... where T: Equatable
+// looks like to specify two constraints (T: Sequence and T: Equatable)
+// you need the where clause though
+/*func commonElements<T: Sequence Equatable>(_ items: T) -> Bool
+{
+    for item in items {
+        print(item)
+    }
+    return true
+}*/
 
 
 
