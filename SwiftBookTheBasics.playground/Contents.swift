@@ -162,6 +162,77 @@ if convertedNumber != nil {
 }
 
 // access the actual value by using an exclamation mark at the end of the variable's name.
+if convertedNumber != nil {
+    print("converted number has an integer value of \(convertedNumber!).")
+}
+
+// force unwrapping an optional without an actual value causes a runtime error
+//print("answer is \(answer!)")
+
+// if statement below reads: if possibleNumber can be unwrapped, set the value inside it to a new 
+// constant called actualNumber
+if let actualNumber = Int(possibleNumber) { // this let also works with var
+    print("\(possibleNumber) has an integer value of \(actualNumber)")
+} else {
+    print("\(possibleNumber) could not be converted into an integer")
+}
+
+// can double up on assigning variables inside if statements
+if let firstNumber = Int("4"), let secondNumber = Int("42"), firstNumber < secondNumber && secondNumber < 100 {
+    print("\(firstNumber) < \(secondNumber) < 100")
+}
+
+// if any part of this fails, all of the if fails
+if let firstNumber = Int("4"), let secondNumber = Int("test"), firstNumber < secondNumber && secondNumber < 100 {
+    print("\(firstNumber) < \(secondNumber) < 100")
+}
+
+// constants and variables created within an if statement are only valid within an if statement.
+
+// implicitly unwrapped optionals are declared using the ! rather than the ?
+// then there is no need to unwrap it before using
+let possibleString: String? = "an optional string."
+let forcedString: String = possibleString! // must use exlamation mark to use
+
+let assumedString: String! = "An implicitly unwrapped optional string."
+let implicitString: String = assumedString // no need for exclamation mark
+
+// if an implicitly unwrapped optional is nil, it will trigger a runtime error
+// just like force unwrapping an optional that is nil would
+// don't use an implicitly unwrapped optional when there's a possibliity the var could become nil later
+// but then why use an optional at all?
+
+// Error Handling
+// functions that can throw an error are declared using the throws keyword
+func canThrowAnError() throws {
+    // may or may not throw an error
+}
+
+// when calling a function that can throw an error, prepend the try keyword
+do {
+    try canThrowAnError()
+    // executed if no error was thrown
+} catch {
+    // executeed if an error was thrown
+}
+
+// may use multiple catch statements to catch various types of errors just like C#
+// errors can be defined to return values. error handling can then use those values
+
+// Assertions
+// use assertions to trigger points where your code may not be executed past that point if it fails
+// assertions are only for debug. they're disabled when code is compiled with optimizations
+// as with an app's default Release configuration
+
+let age = -3
+// the message in the assert statement is optional
+//assert(age >= 0, "A person's age cannot be less than zero") // this triggers an error
+
+
+
+
+
+
 
 
 
