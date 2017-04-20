@@ -92,11 +92,82 @@ let justOverOneMillion = 1_000_000.000_000_1
 //let tooBig: Int8 = Int8.max + 1 // overflow error
 
 // to convert between number types, you must make a new variable and cast the different types
+// must provide casts or else Swift gets angry.
+// however, casts only apply to variables and not literals because Swift gives literals implicit types
 let twoThousand: UInt16 = 2_000
 let one: UInt8 = 1
 let twoThousandAndOne = twoThousand + UInt16(one)
 
-let
+// floating point values are always truncated when used to initialize values in an Int array
+let floatingPointValue = 2.718
+let intArray: [Int] = [Int(floatingPointValue), 4, 5, 8] // must be casted though or else it throws an error
+
+// type aliases define an alternative name for an existing type using the typealias keyword.
+typealias AudioSample = UInt16
+
+var maxAmplitudeFound = AudioSample.min
+
+// booleans are declared with the Bool keyword. values are true and false
+let orangesAreOrange = true
+let turnipsAreDelicious = false
+
+// types in tuples don't all have to be the same
+// tuples are defined in parentheses and values are separated by commas
+let http404Error = (404, "Not Found") // type is (Int, String)
+
+// decomposing tuples is done by putting variable names into tuple syntax
+let (statusCode, statusMessage) = http404Error
+print("the status code is \(statusCode)")
+print("the status message is \(statusMessage)")
+
+// can limit the values extracted from the tuple with an underscore if you don't need them.
+let (justTheStatusCode, _) = http404Error
+print("the statuscode is \(justTheStatusCode)")
+
+// can also access tuple members with indices
+print("the status message is \(http404Error.1)")
+
+// can name individual elements in a tuple when the tuple is defined
+let http200Status = (statusCode: 200, description: "OK")
+
+// if you name it, then you can use the names (as well as indices) to access values
+print("the status code is \(http200Status.statusCode)")
+
+// swift wants you to use tuples as the return values of functions.
+
+// optionals in swift let you indicate the absence of a value for any type, even custom classes and stuff
+let possibleNumber = "123"
+let convertedNumber = Int(possibleNumber)
+
+let numberAttempt = "hello, world"
+let convertedNumberAttempt = Int(numberAttempt) // this is nil because the Int conversion returns an optional
+
+// optionals are described with a ?, such as Int?
+// this means the value is either an Int or nil.
+var serverResponseCode: Int? = 404
+serverResponseCode = nil
+
+// nil can't work with non-optional constants and variables
+//let attemptedValue = nil // doesn't compile
+var attemptedString = "this is a string"
+//attemptedString = nil // doesn't compile
+
+// if you define an optional variable without providing a default value the variable is automatically
+// set to nil
+var answer: String?
+
+// use if statements to find out whether an optional contains a value by comparing against nil
+if convertedNumber != nil {
+    print("convertedNumber contains an integer value: \(convertedNumber)") // Optional123
+}
+
+// access the actual value by using an exclamation mark at the end of the variable's name.
+
+
+
+
+
+
 
 
 
