@@ -82,6 +82,46 @@ greeting[index]
 //greeting[greeting.endIndex] // does not compile
 //greeting.index(after:greeting.endIndex) // does not compile
 
+// can use the indices property of the characters property of a string
+// in order to access all the indices of the individual characters in a string
+for index in greeting.characters.indices {
+    print("\(greeting[index]) ", terminator: "")
+}
+
+// can use startIndex, endIndex properties and index(before:), index(after:), and index(_:offsetBy:)
+// methods on any type that conforms to the Collection protocol. this includes String, Array,
+// Dictionary, and Set (and probably others)
+
+// to insert a char into a string at an index, use insert(_:at:)
+// to insert another string at an index, use insert(contentsOf:at:)
+var hello = "hello"
+hello.insert("!", at: hello.endIndex)
+hello.insert(contentsOf: " there".characters, at: hello.index(before: hello.endIndex))
+
+// to remove a single character from a string at an index, use the remove(at:) method
+// to remove a substring at a specified range, use the removeSubrange(_:) method
+hello.remove(at: hello.index(before: hello.endIndex))
+let range = hello.index(hello.endIndex, offsetBy: -6)..<hello.endIndex
+hello.removeSubrange(range)
+
+// insert(_:at:), insert(contentsOf:at:), remove(at:), and removeSubrange(_:) are valid on
+// any type that conforms to the RangeReplaceableCollection protocol
+// as before, this includes String, Array, Dictionary, and Set
+
+// Comparing Strings
+
+// string and character equality is checked with == and !=
+
+// prefix and suffix equality is checked with hasPrefix(_:) and hasSuffix(_:)
+// both take a single String and return a bool
+
+
+
+
+
+
+
+
 
 
 
