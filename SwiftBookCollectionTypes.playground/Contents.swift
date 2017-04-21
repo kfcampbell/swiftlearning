@@ -163,7 +163,7 @@ for digit in oddDigits {
 // use isStrictSubset(of:) and isStrictSuperset(of:) methods to perform the specified operation
 // but return false if the sets are equal
 // use isDisjoint(with:) to determine whether two sets have no values in common
-let houseAnimals: Set ["dog", "cat"]
+let houseAnimals: Set = ["dog", "cat"]
 let farmAnimals: Set = ["cow", "chicken", "dog", "cat"]
 let cityAnimals: Set = ["bird", "mouse"]
 
@@ -172,6 +172,19 @@ farmAnimals.isSuperset(of: houseAnimals)
 farmAnimals.isDisjoint(with: cityAnimals)
 
 // DICTIONARIES
+// a dictionary is basically a hashtable. it stores key-value pairs with no ordering
+// keys must be unique. Key types must conform to the Hashable protocol like a set's value type
+
+// initialize using Dictionary<Key, Value> or [Key: Value]
+var namesOfIntegers = [Int: String]()
+//var namesOfIntegers = Dictionary<Int, String>()
+
+namesOfIntegers[16] = "sixteen"
+namesOfIntegers = [:] // if it's been preinitialized, can make it empty again just like arrays/sets
+                      // but with a colon in the middle of the brackets
+
+// can initialize with a literal
+var airports: [String: String] = ["YYZ": "Toronto Pearson", "DUB": "Dublin"]
 
 
 
