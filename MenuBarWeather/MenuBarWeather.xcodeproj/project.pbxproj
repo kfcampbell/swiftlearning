@@ -13,6 +13,7 @@
 		0323FC641EABA058004F45E5 /* StatusMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0323FC631EABA058004F45E5 /* StatusMenuController.swift */; };
 		0323FC661EABA267004F45E5 /* WeatherAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0323FC651EABA267004F45E5 /* WeatherAPIService.swift */; };
 		0323FC681EABA311004F45E5 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0323FC671EABA311004F45E5 /* Keys.swift */; };
+		0323FC6A1EABB7C7004F45E5 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0323FC691EABB7C7004F45E5 /* WeatherView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		0323FC631EABA058004F45E5 /* StatusMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
 		0323FC651EABA267004F45E5 /* WeatherAPIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherAPIService.swift; sourceTree = "<group>"; };
 		0323FC671EABA311004F45E5 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		0323FC691EABB7C7004F45E5 /* WeatherView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				0323FC561EAB9C56004F45E5 /* AppDelegate.swift */,
 				0323FC581EAB9C56004F45E5 /* Assets.xcassets */,
 				0323FC5A1EAB9C56004F45E5 /* MainMenu.xib */,
+				0323FC691EABB7C7004F45E5 /* WeatherView.swift */,
 				0323FC651EABA267004F45E5 /* WeatherAPIService.swift */,
 				0323FC671EABA311004F45E5 /* Keys.swift */,
 				0323FC631EABA058004F45E5 /* StatusMenuController.swift */,
@@ -138,6 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0323FC6A1EABB7C7004F45E5 /* WeatherView.swift in Sources */,
 				0323FC661EABA267004F45E5 /* WeatherAPIService.swift in Sources */,
 				0323FC681EABA311004F45E5 /* Keys.swift in Sources */,
 				0323FC641EABA058004F45E5 /* StatusMenuController.swift in Sources */,

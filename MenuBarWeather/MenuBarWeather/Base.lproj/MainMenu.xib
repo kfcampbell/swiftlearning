@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -17,6 +18,7 @@
         <customObject id="FJt-9h-pu7" customClass="StatusMenuController" customModule="MenuBarWeather" customModuleProvider="target">
             <connections>
                 <outlet property="statusMenu" destination="2VH-Vb-3kB" id="nZv-GZ-ZaI"/>
+                <outlet property="weatherView" destination="d1G-QW-Nqx" id="lix-Sh-xYr"/>
             </connections>
         </customObject>
         <menu id="2VH-Vb-3kB">
@@ -28,6 +30,10 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="Ydw-Jj-YAs"/>
+                <menuItem title="Weather" id="Bwb-G4-Wf9">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="TAu-Cg-TP0"/>
                 <menuItem title="Quit" id="ex5-gf-Nou">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -36,5 +42,40 @@
                 </menuItem>
             </items>
         </menu>
+        <customView id="d1G-QW-Nqx" customClass="WeatherView" customModule="MenuBarWeather" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="265" height="90"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mvk-yg-Z2p">
+                    <rect key="frame" x="20" y="22" width="50" height="50"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="prK-7g-lCI"/>
+                </imageView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G41-3t-E2i">
+                    <rect key="frame" x="107" y="22" width="108" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Temp/Conditions" id="vzu-Cu-bQs">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6sb-XA-Wfv">
+                    <rect key="frame" x="111" y="47" width="136" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="City" id="R5j-U8-uJe">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <connections>
+                <outlet property="cityTextField" destination="6sb-XA-Wfv" id="LIP-cp-DR1"/>
+                <outlet property="tempConditionsTextField" destination="G41-3t-E2i" id="f20-Tn-r1y"/>
+                <outlet property="weatherImageView" destination="Mvk-yg-Z2p" id="TZo-ic-Tvd"/>
+            </connections>
+            <point key="canvasLocation" x="187.5" y="419"/>
+        </customView>
     </objects>
 </document>
