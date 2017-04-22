@@ -12,13 +12,17 @@ struct Weather {
     var city: String
     var currentTemp: Float
     var conditions: String
+    
+    var description: String {
+        return "\(city): \(currentTemp)F and \(conditions)"
+    }
 }
 
 class WeatherApi {
     let keys = Keys()
     let BASE_URL = "http://api.openweathermap.org/data/2.5/weather"
     
-    func fetchWeather(_ query: String) {
+    func fetchWeather(query: String, success: @escaping (Weather) -> Void) {
         let session = URLSession.shared
         let escapedQuery = query.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
         
@@ -36,7 +40,7 @@ class WeatherApi {
                 switch httpResponse.statusCode {
                 case 200:
                     if let weather = self.getWeatherFromJsonData(data: data!) {
-                        NSLog("\(weather)")
+                        success(weather)
                     }
                 case 401:
                     NSLog("Weather API returned unauthorized response. There's probably a problem with the API key")
