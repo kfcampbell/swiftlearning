@@ -23,7 +23,7 @@
         </customObject>
         <menu id="2VH-Vb-3kB">
             <items>
-                <menuItem title="Update" id="KDS-1A-Qmn">
+                <menuItem title="Update Weather" id="KDS-1A-Qmn">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="updateClicked:" target="FJt-9h-pu7" id="zR3-r7-hxl"/>
@@ -34,6 +34,12 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="TAu-Cg-TP0"/>
+                <menuItem title="Preferences" id="GSy-ah-28V">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="preferencesClicked:" target="FJt-9h-pu7" id="1Cx-Kx-jYO"/>
+                    </connections>
+                </menuItem>
                 <menuItem title="Quit" id="ex5-gf-Nou">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>

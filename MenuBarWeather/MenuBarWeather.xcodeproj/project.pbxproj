@@ -14,6 +14,8 @@
 		0323FC661EABA267004F45E5 /* WeatherAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0323FC651EABA267004F45E5 /* WeatherAPIService.swift */; };
 		0323FC681EABA311004F45E5 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0323FC671EABA311004F45E5 /* Keys.swift */; };
 		0323FC6A1EABB7C7004F45E5 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0323FC691EABB7C7004F45E5 /* WeatherView.swift */; };
+		0323FC711EAC07AD004F45E5 /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0323FC6F1EAC07AD004F45E5 /* PreferencesWindow.swift */; };
+		0323FC721EAC07AD004F45E5 /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0323FC701EAC07AD004F45E5 /* PreferencesWindow.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		0323FC651EABA267004F45E5 /* WeatherAPIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherAPIService.swift; sourceTree = "<group>"; };
 		0323FC671EABA311004F45E5 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		0323FC691EABB7C7004F45E5 /* WeatherView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
+		0323FC6F1EAC07AD004F45E5 /* PreferencesWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesWindow.swift; sourceTree = "<group>"; };
+		0323FC701EAC07AD004F45E5 /* PreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindow.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +69,8 @@
 				0323FC651EABA267004F45E5 /* WeatherAPIService.swift */,
 				0323FC671EABA311004F45E5 /* Keys.swift */,
 				0323FC631EABA058004F45E5 /* StatusMenuController.swift */,
+				0323FC6F1EAC07AD004F45E5 /* PreferencesWindow.swift */,
+				0323FC701EAC07AD004F45E5 /* PreferencesWindow.xib */,
 				0323FC5D1EAB9C56004F45E5 /* Info.plist */,
 			);
 			path = MenuBarWeather;
@@ -130,6 +136,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0323FC591EAB9C56004F45E5 /* Assets.xcassets in Resources */,
+				0323FC721EAC07AD004F45E5 /* PreferencesWindow.xib in Resources */,
 				0323FC5C1EAB9C56004F45E5 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -145,6 +152,7 @@
 				0323FC661EABA267004F45E5 /* WeatherAPIService.swift in Sources */,
 				0323FC681EABA311004F45E5 /* Keys.swift in Sources */,
 				0323FC641EABA058004F45E5 /* StatusMenuController.swift in Sources */,
+				0323FC711EAC07AD004F45E5 /* PreferencesWindow.swift in Sources */,
 				0323FC571EAB9C56004F45E5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -298,6 +306,7 @@
 				0323FC621EAB9C56004F45E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
