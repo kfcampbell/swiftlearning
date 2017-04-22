@@ -1,5 +1,6 @@
 .DS_Store
 *.xcuserstate
+MenuBarWeather/MenuBarWeather/Keys.swift
 
 # Created by https://www.gitignore.io/api/xcode,macos,swift
 
