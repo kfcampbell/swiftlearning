@@ -20,6 +20,11 @@ class StatusMenuController: NSObject {
         statusItem.menu = statusMenu
     }
     
+    @IBAction func updateClicked(_ sender: NSMenuItem) {
+        let weatherApi = WeatherApi()
+        weatherApi.fetchWeather("Seattle")
+    }
+    
     @IBAction func quitClicked(_ sender: NSMenuItem) {
         NSApplication.shared().terminate(self)
     }
