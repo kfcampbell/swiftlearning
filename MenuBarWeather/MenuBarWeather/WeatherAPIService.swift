@@ -12,6 +12,7 @@ struct Weather {
     var city: String
     var currentTemp: Float
     var conditions: String
+    var icon: String
     
     var description: String {
         return "\(city): \(currentTemp)F and \(conditions)"
@@ -71,7 +72,8 @@ class WeatherApi {
         let weather = Weather(
             city: json["name"] as! String,
             currentTemp: mainDict["temp"] as! Float,
-            conditions: weatherDict["main"] as! String
+            conditions: weatherDict["main"] as! String,
+            icon: weatherDict["icon"] as! String
         )
     
         return weather
