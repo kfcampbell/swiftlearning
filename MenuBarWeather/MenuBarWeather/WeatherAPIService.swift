@@ -8,6 +8,12 @@
 
 import Foundation
 
+struct Weather {
+    var city: String
+    var currentTemp: Float
+    var conditions: String
+}
+
 class WeatherApi {
     let keys = Keys()
     let BASE_URL = "http://api.openweathermap.org/data/2.5/weather"
@@ -29,8 +35,8 @@ class WeatherApi {
             if let httpResponse = response as? HTTPURLResponse {
                 switch httpResponse.statusCode {
                 case 200:
-                    if let dataString = String(data: data!, encoding: .utf8) {
-                        NSLog(dataString)
+                    if let weather = self.getWeatherFromJsonData(data: data!) {
+                        NSLog("\(weather)")
                     }
                 case 401:
                     NSLog("Weather API returned unauthorized response. There's probably a problem with the API key")
@@ -42,4 +48,29 @@ class WeatherApi {
         
         task.resume()
     }
+    
+    func getWeatherFromJsonData(data: Data) -> Weather? {
+        typealias JSONDict = [String:AnyObject]
+        let json: JSONDict
+        
+        do {
+            json = try JSONSerialization.jsonObject(with: data, options: []) as! JSONDict
+        } catch {
+            NSLog("JSON parsing failed: \(error)")
+            return nil
+        }
+        
+        var mainDict = json["main"] as! JSONDict
+        var weatherList = json["weather"] as! [JSONDict]
+        var weatherDict = weatherList[0]
+        
+        let weather = Weather(
+            city: json["name"] as! String,
+            currentTemp: mainDict["temp"] as! Float,
+            conditions: weatherDict["main"] as! String
+        )
+    
+        return weather
+    }
+
 }
